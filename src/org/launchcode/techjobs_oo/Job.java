@@ -1,5 +1,8 @@
 package org.launchcode.techjobs_oo;
 
+import com.sun.source.tree.NewArrayTree;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Job {
@@ -98,14 +101,31 @@ public class Job {
 
     @Override
     public String toString() {
-        String itsAString = "";
+        String stringOfJobData = "";
 
-        return "\nID: " + this.getId() +
-                "\nName: " + this.getName() +
-                "\nEmployer: " + this.getEmployer().getValue() +
-                "\nLocation: " + this.getLocation().getValue() +
-                "\nPosition Type: " + this.getPositionType().getValue() +
-                "\nCore Competency: " + this.getCoreCompetency().getValue() +
-                "\n";
+        ArrayList<String> jobDataLables = new ArrayList<>();
+        jobDataLables.add("Name: ");
+        jobDataLables.add("Employer: ");
+        jobDataLables.add("Location: ");
+        jobDataLables.add("Position Type: ");
+        jobDataLables.add("Core Competency: ");
+
+        ArrayList<String> jobData = new ArrayList<>();
+        jobData.add(this.getName());
+        jobData.add(this.getEmployer().getValue());
+        jobData.add(this.getLocation().getValue());
+        jobData.add(this.getPositionType().getValue());
+        jobData.add(this.getCoreCompetency().getValue());
+
+        for (int i = 0; i < jobDataLables.size(); i++) {
+            if (jobData.get(i).isBlank()) {
+                stringOfJobData += jobDataLables.get(i) + "Data is not available\n";
+            } else {
+                stringOfJobData += jobDataLables.get(i) + jobData.get(i) + "\n";
+            }
+        }
+
+        return "\nID: " + this.getId() + "\n" + stringOfJobData;
+
     }
 }
